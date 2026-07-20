@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ♡</title>
-<meta property="og:title" content="Someone made something for you ♡">
-<meta property="og:description" content="Open this when you're somewhere quiet.">
+<title>For Neha ♡</title>
+<meta property="og:title" content="Neha ji, kuch hai aapke liye ♡">
+<meta property="og:description" content="Open this when you're somewhere quiet. Chai ke saath ho to best.">
 <style>
   /* ============================================================
      EDIT YOUR COLORS HERE (or leave them, they're already lovely)
@@ -98,6 +98,22 @@
     font-size:14.5px;line-height:1.55;font-style:italic;box-shadow:0 10px 30px rgba(255,107,157,.25)}
   .cards-done{margin-top:36px}
 
+  /* ---------- Scene 4.5: quiz ---------- */
+  #s-quiz .quiz-title{font-weight:normal;font-style:italic;font-size:clamp(20px,5.5vw,30px);color:var(--rose-soft);margin-bottom:8px}
+  #s-quiz .quiz-sub{color:rgba(255,255,255,.5);font-size:15px;margin-bottom:28px;font-style:italic}
+  .quiz-box{max-width:520px;width:100%;background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+    border:1px solid rgba(255,179,201,.25);border-radius:18px;padding:28px 22px;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+  .quiz-q{font-size:clamp(17px,4.6vw,21px);line-height:1.6;margin-bottom:22px;color:#fff}
+  .quiz-opts{display:flex;flex-direction:column;gap:12px}
+  .quiz-opt{font-family:inherit;font-size:15.5px;text-align:left;color:var(--rose-soft);background:rgba(255,107,157,.08);
+    border:1px solid rgba(255,179,201,.3);border-radius:12px;padding:13px 16px;cursor:pointer;transition:all .25s}
+  .quiz-opt:hover{background:rgba(255,107,157,.2);transform:translateX(4px)}
+  .quiz-opt.picked{background:linear-gradient(135deg,var(--rose),#c73e77);color:#fff;border-color:transparent}
+  .quiz-opt.dim{opacity:.35;pointer-events:none}
+  .quiz-resp{margin-top:18px;font-style:italic;font-size:15.5px;line-height:1.7;color:var(--gold);min-height:0;opacity:0;transition:opacity .8s}
+  .quiz-resp.show{opacity:1}
+  #btn-quiz-next{margin-top:26px}
+
   /* ---------- Scene 5: the question ---------- */
   #s-question h2{font-weight:normal;font-size:clamp(24px,6.5vw,40px);line-height:1.5;max-width:640px;
     background:linear-gradient(90deg,var(--rose-soft),var(--gold),var(--rose-soft));-webkit-background-clip:text;
@@ -122,7 +138,7 @@
 <!-- Scene 1 -->
 <section class="scene on" id="s-intro">
   <p class="whisper" id="intro-line">
-    hey you… yes, you.<span class="l2">someone spent a long time making this, just for you.</span>
+    hey Neha… haan, tum hi.<span class="l2">kisi ne yeh sirf tumhare liye banaya hai. bina kisi occasion ke. bas aise hi.</span>
   </p>
   <div class="tap-hint">tap anywhere to begin ♡</div>
 </section>
@@ -137,7 +153,7 @@
       <div class="seal">♡</div>
     </div>
   </div>
-  <div class="env-caption">break the seal… I dare you</div>
+  <div class="env-caption">seal todo, Neha ji… himmat hai? 😏</div>
 </section>
 
 <!-- Scene 3 -->
@@ -147,23 +163,35 @@
     <div id="typed"></div>
     <div class="sig" id="letter-sig"></div>
   </div>
-  <button class="btn next-btn" id="btn-after-letter">there's more… →</button>
+  <button class="btn next-btn" id="btn-after-letter">aage aur bhi hai… →</button>
 </section>
 
 <!-- Scene 4 -->
 <section class="scene" id="s-cards">
-  <h2>a few secrets, sealed for you</h2>
-  <p class="sub">flip each one… curiosity looks beautiful on you</p>
+  <h2>kuch secrets, sirf tumhare liye sealed</h2>
+  <p class="sub">flip karo… curiosity tum par achhi lagti hai</p>
   <div class="cards" id="cards"></div>
-  <button class="btn cards-done next-btn" id="btn-after-cards">one last thing… →</button>
+  <button class="btn cards-done next-btn" id="btn-after-cards">ab thoda khelte hain… →</button>
+</section>
+
+<!-- Scene 4.5: playful quiz -->
+<section class="scene" id="s-quiz">
+  <h2 class="quiz-title">chhote chhote sawaal ☕</h2>
+  <p class="sub quiz-sub">koi galat jawab nahi hai… almost 😄</p>
+  <div class="quiz-box">
+    <div class="quiz-q" id="quiz-q"></div>
+    <div class="quiz-opts" id="quiz-opts"></div>
+    <div class="quiz-resp" id="quiz-resp"></div>
+  </div>
+  <button class="btn next-btn" id="btn-quiz-next">agla sawaal →</button>
 </section>
 
 <!-- Scene 5 -->
 <section class="scene" id="s-question">
   <h2 id="big-question"></h2>
   <div class="q-btns">
-    <button class="btn" id="btn-yes">Yes, always ♡</button>
-    <button class="btn ghost" id="btn-shy">ask me nicer</button>
+    <button class="btn" id="btn-yes">Haan, chalte hain ♡</button>
+    <button class="btn ghost" id="btn-shy">sochna padega 😏</button>
   </div>
 </section>
 
@@ -171,7 +199,7 @@
 <section class="scene" id="s-forever">
   <h2 id="forever-line"></h2>
   <div class="days" id="days-count"></div>
-  <div class="tiny">screenshot this. it's yours now. so am I.</div>
+  <div class="tiny">screenshot le lo… aur haan, reply me sirf ek chai wala emoji bhejna ☕</div>
 </section>
 
 <script>
@@ -179,38 +207,73 @@
    ♡ EDIT EVERYTHING BELOW — make it truly yours ♡
    ===================================================================== */
 const CONFIG = {
-  herName: "my love",          // ← her name or nickname
-  yourName: "yours, always",   // ← how you sign the letter, e.g. "forever yours, Shivam"
+  herName: "Neha",
+  yourName: "Shivam (tumhara hone wala best friend)",
 
-  letterTitle: "to the one my heart keeps choosing,",
+  letterTitle: "Neha ji, ek baat kehni thi…",
 
   letter:
-`I don't fully know how to put you into words, but I keep trying anyway, because you deserve every attempt.
+`Tumne kaha tha, "Har relationship ka foundation friendship hoti hai." Maine us raat ke baad yeh banaya. Kyunki tum sahi ho. Aur main chahta hoon tumhe yeh sirf shabdon mein nahi, feel mein bhi mile.
 
-You are the thought that finds me in the middle of ordinary days. The reason small things feel big. When you laugh, something in me quietly says: there she is. That's home.
+Mujhe pata hai kabhi kabhi lagta hai ki kuch off hai. Ki tum mujhse apni chhoti chhoti baatein share nahi kar pati. Yeh padh kar main hurt nahi hua tha, main ruka tha. Kyunki jo insaan itni honestly bata sake ki usse kya chahiye, uske saath future andhere mein nahi, poori roshni mein dikhta hai mujhe.
 
-I made this little corner of the internet because I wanted you to have a place that exists only because of you. No ads, no noise. Just proof that someone sat down and built something with his whole heart, thinking only of your smile when you'd open it.
+To yeh mera promise hai: main pehle tumhara best friend banunga. Wo jise tum 2 baje raat ko random Epstein files wali theories bhej sako. Jise tum bina soche bata sako ki aaj din kaisa gaya, ghevar kitna khaya, aur kis baat pe mann kharab hua. Roasting mode bhi ON rahega, par tumhare against nahi, tumhare saath.
 
-Whatever today felt like, heavy or light, I need you to know this: you are loved. Not casually. Not conveniently. Deliberately. Completely. On purpose.`,
+Tumhari hansi, tumhara "yessss", tumhara flowers dekh ke 🥺 ho jaana. Yeh sab meri favourite cheezein ban chuki hain. Aur main koi jaldi mein nahi hoon. Dosti se shuru karte hain. Baaki sab waqt pe chhod dete hain.
 
-  bigQuestion: "Through every version of us, in every season yet to come… will you keep being mine?",
+Bas itna yaad rakhna: tum akeli nahi ho is journey mein. Main hoon. Sun-ne ke liye, samajhne ke liye, seekhne ke liye.`,
 
-  foreverLine: "She said yes. The universe took notes. ♡",
+  bigQuestion: "To Neha ji… ek fresh start? Pehle best friends, phir dekhte hain kahaan tak jaate hain… chalogi?",
 
-  // Set your "day one" (first date / first talk) as YYYY-MM-DD, or null to hide the counter
-  dayOne: null,   // e.g. "2024-02-14"
+  foreverLine: "Deal done. Ab tumhara ek dost hai jo kabhi nahi jayega. ♡",
 
-  // The curiosity cards. icon + a sealed label + the hidden note inside.
+  // 8 Feb 2026, jab yeh nayi chat shuru hui thi
+  dayOne: "2026-02-08",
+
   cards: [
-    { icon:"🌙", label:"open when it's late",   note:"If you're reading this at night: close your eyes for three seconds. That warmth? That's me, thinking of you right now." },
-    { icon:"🌧️", label:"open when you're sad",  note:"Hey. Breathe. You've survived every hard day so far, that's a 100% record. And you don't face the next one alone. Ever." },
-    { icon:"✨", label:"a secret about you",     note:"You have no idea how you light up a room. Everyone else sees it. One day I'll make you see it too." },
-    { icon:"💌", label:"a confession",           note:"Sometimes I re-read our chats and smile like an idiot. Zero regrets. Would smile again." },
-    { icon:"🔮", label:"our future",             note:"Slow mornings. Inside jokes no one else gets. A home that smells like coffee and sounds like your laugh. I'm building toward it." },
-    { icon:"♾️", label:"open anytime",           note:"There is no version of my life, in any universe, where I don't find my way to you." },
+    { icon:"🌸", label:"flowers wali baat",      note:"'Flowers are so beautiful 🥺' — jis din tumne yeh bheja tha, main poore din smile karta raha. Tumhe khush dekhna meri favourite hobby ban gayi hai." },
+    { icon:"🍯", label:"ghevar confession",      note:"Ghevar khane ka competition abhi bhi standing hai. Winner ko pani puri milegi. Judge bhi tum, player bhi tum. Main bas haar ke khush hounga." },
+    { icon:"🌧️", label:"jab mann kharab ho",     note:"Back pain ho, office ka stress ho, ya bas aise hi heavy day. Mujhe batana zaroori nahi, par yaad rakhna: ek insaan hai jo bina judge kiye sirf sunega. Jab bhi ready ho." },
+    { icon:"☕", label:"chai time secret",        note:"95% chai, 5% fancy black coffee. Haan, mujhe yaad hai. Ek din Dehradun ki kisi pahadi wali chai ki tapri pe yeh conversation continue karenge." },
+    { icon:"🏝️", label:"Bali has my heart",      note:"Tumne kaha tha 'Bali has my heart 🥺'. Note kar liya hai. Beach club, sunset, aur zero tanning guarantee to nahi de sakta, par sunscreen main pakdunga." },
+    { icon:"🎲", label:"ludo challenge",          note:"UNO aur Ludo ka open challenge hai. Haarne wala jeetne wale ki ek baat maanega. Sochna mat, main cheating nahi karta… zyada nahi." },
   ],
 
-  shyLines: ["please? 🥺","pretty please, meri jaan?","I'll wait forever, but… please?","my heart is literally buffering…","okay FINE. *gets on one knee* …now?"]
+  // Playful quiz: no wrong answers, every option gets a loving response
+  quiz: [
+    { q:"Sabse pehla sawaal: aaj chai hui?",
+      opts:[
+        {t:"Haan, obviously ☕", r:"Sahi jawab. 95% chai wali ladki ho tum. Baaki 5% ke liye fancy jagah main dhoondh lunga."},
+        {t:"Nahi, abhi tak nahi 🥲", r:"Yeh page pause karo, chai banao, wapas aao. Main yahin hoon. Chai important hai."},
+        {t:"Black coffee thi aaj", r:"Ooh, fancy mood. Noted. Aaj kuch achha hua hai kya? Batana… jab mann kare."}
+      ]},
+    { q:"Agar abhi ek cheez saamne aa jaye, to kya chunogi?",
+      opts:[
+        {t:"Ghevar 🍯", r:"Of course. Kabhi doubt hi nahi tha. Competition wali baat abhi bhi yaad hai mujhe."},
+        {t:"Pani puri 💦", r:"Ek plate se kabhi kisi ka kaam chala hai? Correct answer: 3 plates. Minimum."},
+        {t:"Momos 🥟", r:"Rudrapur wale ya Gurgaon wale? Ek din dono compare karenge, scientific research ke naam pe."}
+      ]},
+    { q:"Perfect Sunday kaisa hota hai?",
+      opts:[
+        {t:"Aadhe din sona 😴", r:"Iconic. Tumhara classic move. Aur honestly? Well deserved. Sleep queen."},
+        {t:"Shopping + faltu splurging 🛍️", r:"'Faltu splurging' tumhare hi words hain, maine bas yaad rakhe. Aur main kabhi judge nahi karunga, promise."},
+        {t:"Ghar walon ke saath time", r:"Aur yahi baat tumhe itna special banati hai. Family first. Hamesha."}
+      ]},
+    { q:"Ek honest sawaal… is page ko banane wala kaisa hai?",
+      opts:[
+        {t:"Thoda pagal hai 😅", r:"Guilty. Par sirf tumhare liye pagal. Baaki duniya ke liye bilkul normal engineer."},
+        {t:"Effort achha hai 😌", r:"Effort? Madam ji, yeh to sirf trailer hai. Picture abhi baaki hai."},
+        {t:"Chalo, thik hai 😒", r:"😂 yeh 😒 wali energy bhi miss karta hoon main. Kabhi mat badalna."}
+      ]},
+    { q:"Last one. Ek best friend mein sabse zaroori kya hai?",
+      opts:[
+        {t:"Jo sune, bina judge kiye", r:"Deal. Meri roasting sirf duniya ke liye hai, tumhare liye sirf kaan aur time. Full attention, zero judgement."},
+        {t:"Jo hasa sake 😄", r:"Good sense of humour, right? Practice chal rahi hai. Daily. Tumhari hansi is worth every bad joke."},
+        {t:"Jo bina bole samajh jaye", r:"Yeh waala main seekh raha hoon. Thoda time do. Par seekhunga zaroor, kyunki tum worth it ho."}
+      ]},
+  ],
+
+  shyLines: ["please? 🥺","pretty please, Neha ji?","chai pilaunga, life bhar…","ghevar bhi launga har saal 🍯","accha deepak 🪔 bhi jala dunga… ab to haan bolo?"]
 };
 /* ===================== end of editable section ====================== */
 
@@ -280,8 +343,36 @@ function buildCards(){
     wrap.appendChild(d);
   });
 }
-$('#btn-after-cards').addEventListener('click',()=>{
-  $('#big-question').textContent=CONFIG.bigQuestion;heartRate=.12;show('#s-question');
+$('#btn-after-cards').addEventListener('click',()=>{startQuiz();show('#s-quiz');});
+
+/* Playful quiz */
+let qIdx=0;
+function startQuiz(){qIdx=0;renderQuiz();}
+function renderQuiz(){
+  const item=CONFIG.quiz[qIdx];
+  $('#quiz-q').textContent=item.q;
+  const resp=$('#quiz-resp');resp.classList.remove('show');resp.textContent='';
+  $('#btn-quiz-next').classList.remove('show');
+  const wrap=$('#quiz-opts');wrap.innerHTML='';
+  item.opts.forEach(o=>{
+    const b=document.createElement('button');b.className='quiz-opt';b.textContent=o.t;
+    b.addEventListener('click',e=>{
+      if(wrap.querySelector('.picked'))return;
+      b.classList.add('picked');
+      wrap.querySelectorAll('.quiz-opt:not(.picked)').forEach(x=>x.classList.add('dim'));
+      resp.textContent=o.r;resp.classList.add('show');
+      burst(e.clientX,e.clientY,8);
+      const nb=$('#btn-quiz-next');
+      nb.textContent=(qIdx<CONFIG.quiz.length-1)?'agla sawaal →':'ab asli sawaal… ♥';
+      setTimeout(()=>nb.classList.add('show'),900);
+    });
+    wrap.appendChild(b);
+  });
+}
+$('#btn-quiz-next').addEventListener('click',()=>{
+  qIdx++;
+  if(qIdx<CONFIG.quiz.length){renderQuiz();}
+  else{$('#big-question').textContent=CONFIG.bigQuestion;heartRate=.12;show('#s-question');}
 });
 
 /* The question */
@@ -298,7 +389,7 @@ $('#btn-yes').addEventListener('click',e=>{
   $('#forever-line').textContent=CONFIG.foreverLine;
   if(CONFIG.dayOne){
     const d=Math.floor((Date.now()-new Date(CONFIG.dayOne))/86400000);
-    $('#days-count').textContent=`♡ ${d.toLocaleString()} days of us, and counting ♡`;
+    $('#days-count').textContent=`♡ ${d.toLocaleString()} din ho gaye humein baat karte hue ♡`;
   }
   setTimeout(()=>show('#s-forever'),900);
   setTimeout(()=>heartRate=.15,6000);
