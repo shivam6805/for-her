@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Neha ♡</title>
 <meta property="og:title" content="Neha ji, kuch hai aapke liye ♡">
-<meta property="og:description" content="Open this when you're somewhere quiet. Chai ke saath ho to best.">
+<meta property="og:description" content="Subah ki chai ke saath kholna... dhyaan se, thoda pyaar gir sakta hai.">
 <style>
   /* ============================================================
      EDIT YOUR COLORS HERE (or leave them, they're already lovely)
@@ -183,7 +183,7 @@
 <!-- Scene 1 -->
 <section class="scene on" id="s-intro">
   <p class="whisper" id="intro-line">
-    hey Neha… haan, tum hi.<span class="l2">kisi ne yeh sirf tumhare liye banaya hai. bina kisi occasion ke. bas aise hi.</span>
+    <span id="greet">good morning, laado ♡</span><span class="l2">aaj ki subah thodi alag hai… kisi ne raat bhar jaag kar yeh sirf tumhare liye banaya hai.</span>
   </p>
   <div class="tap-hint">tap anywhere to begin ♡</div>
 </section>
@@ -343,8 +343,8 @@ let shooting=[],petals=[];
 function spawnShooting(){if(Math.random()<.006&&shooting.length<2){const x=Math.random()*innerWidth*.8+innerWidth*.1;shooting.push({x,y:Math.random()*innerHeight*.3,vx:-(4+Math.random()*4),vy:2+Math.random()*2,life:1});}}
 function drawShooting(){for(const s of shooting){sx.strokeStyle=`rgba(255,255,255,${s.life*.8})`;sx.lineWidth=1.6;sx.beginPath();sx.moveTo(s.x,s.y);sx.lineTo(s.x-s.vx*9,s.y-s.vy*9);sx.stroke();s.x+=s.vx;s.y+=s.vy;s.life-=.02;}shooting=shooting.filter(s=>s.life>0);}
 let petalRate=0;
-function spawnPetal(){petals.push({x:Math.random()*innerWidth,y:-16,vy:.5+Math.random()*.9,sway:Math.random()*Math.PI*2,swaySpeed:.008+Math.random()*.02,size:5+Math.random()*7,rot:Math.random()*Math.PI*2,vr:(Math.random()-.5)*.03,hue:Math.random()<.5?340:350,a:.5+Math.random()*.4});}
-function drawPetals(){if(petalRate>0&&Math.random()<petalRate)spawnPetal();petals=petals.filter(p=>p.y<innerHeight+20);for(const p of petals){p.sway+=p.swaySpeed;p.y+=p.vy;p.x+=Math.sin(p.sway)*1.1;p.rot+=p.vr;hx.save();hx.translate(p.x,p.y);hx.rotate(p.rot);hx.globalAlpha=p.a;hx.fillStyle=`hsl(${p.hue} 80% 82%)`;hx.beginPath();hx.ellipse(0,0,p.size,p.size*.55,0,0,7);hx.fill();hx.restore();}hx.globalAlpha=1;}
+function spawnPetal(){petals.push({x:Math.random()*innerWidth,y:-16,vy:.45+Math.random()*.8,sway:Math.random()*Math.PI*2,swaySpeed:.008+Math.random()*.02,size:7+Math.random()*9,rot:0,vr:0,hue:[330,340,350,345][Math.floor(Math.random()*4)],a:.5+Math.random()*.4});}
+function drawPetals(){if(petalRate>0&&Math.random()<petalRate)spawnPetal();petals=petals.filter(p=>p.y<innerHeight+20);for(const p of petals){p.sway+=p.swaySpeed;p.y+=p.vy;p.x+=Math.sin(p.sway)*1.1;p.rot+=p.vr;hx.save();hx.translate(p.x,p.y);hx.rotate(Math.sin(p.sway)*.35);hx.scale(p.size/14,p.size/14);hx.globalAlpha=p.a;hx.fillStyle=`hsl(${p.hue} 90% 74%)`;hx.beginPath();hx.moveTo(0,5);hx.bezierCurveTo(-8,-4,-4,-11,0,-6);hx.bezierCurveTo(4,-11,8,-4,0,5);hx.fill();hx.restore();}hx.globalAlpha=1;}
 
 function loop(t){drawStars(t);spawnShooting();drawShooting();stepHearts();drawPetals();requestAnimationFrame(loop);}
 addEventListener('resize',()=>{initStars();sizeCanvas(hc);});
@@ -363,6 +363,14 @@ const Music=(()=>{
 const musicBtn=$('#music-btn');
 function setMusic(onn){if(onn){Music.start();musicBtn.classList.add('playing');musicBtn.textContent='♪';}else{Music.stop();musicBtn.classList.remove('playing');musicBtn.textContent='♩';}}
 musicBtn.addEventListener('click',e=>{e.stopPropagation();setMusic(!Music.isPlaying());});
+
+/* Time-aware greeting: morning is default vibe, but adjust if she opens later */
+(function(){const h=new Date().getHours();const g=$('#greet');
+  if(h>=5&&h<12)g.textContent='good morning, laado ♡';
+  else if(h>=12&&h<17)g.textContent='hello ji, laado ♡';
+  else if(h>=17&&h<21)g.textContent='good evening, laado ♡';
+  else g.textContent='itni raat ko jaag rahi ho, laado? ♡';
+})();
 
 /* Scene flow */
 let started=false;
